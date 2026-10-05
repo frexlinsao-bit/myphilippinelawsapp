@@ -1,0 +1,45 @@
+{
+  "name": "philippine-laws-app",
+  "version": "1.0.0",
+  "description": "Offline Philippine Laws application",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^37.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "io.github.frexlinsao_bit.MyPhilippineLawsApp",
+    "productName": "My Philippine Laws App",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "main.js",
+      "preload.js",
+      "renderer.js",
+      "data/runtime_laws.sqlite3",
+      "assets/**/*",
+      "icons/**/*",
+      "IMG_8381.JPG"
+    ],
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Education",
+      "icon": "icons",
+      "maintainer": "Frex L Insao <frex@example.com>"
+    },
+    "asarUnpack": [
+      "data/runtime_laws.sqlite3"
+    ]
+  },
+  "author": "Frex L Insao <frex@example.com>",
+  "homepage": "https://example.com"
+}

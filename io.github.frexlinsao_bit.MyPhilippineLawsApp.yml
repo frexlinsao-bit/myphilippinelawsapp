@@ -1,0 +1,24 @@
+app-id: io.github.frexlinsao_bit.MyPhilippineLawsApp
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+command: philippine-laws-app
+
+finish-args:
+  - --share=ipc
+  - --socket=x11
+  - --socket=wayland
+  - --device=dri
+
+modules:
+  - name: my-philippine-laws-app
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/my-philippine-laws-app
+      - cp -a . /app/my-philippine-laws-app/
+      - install -Dm755 philippine-laws-app.sh /app/bin/philippine-laws-app
+      - install -Dm644 io.github.frexlinsao_bit.MyPhilippineLawsApp.desktop /app/share/applications/io.github.frexlinsao_bit.MyPhilippineLawsApp.desktop
+      - install -Dm644 icons/icon-512.png /app/share/icons/hicolor/512x512/apps/io.github.frexlinsao_bit.MyPhilippineLawsApp.png
+    sources:
+      - type: dir
+        path: flatpak-app

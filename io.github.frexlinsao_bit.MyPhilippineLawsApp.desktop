@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=My Philippine Laws App
+Comment=Offline Philippine Laws application
+Exec=philippine-laws-app
+Icon=io.github.frexlinsao_bit.MyPhilippineLawsApp
+Terminal=false
+Type=Application
+Categories=Education;
+StartupWMClass=My Philippine Laws App

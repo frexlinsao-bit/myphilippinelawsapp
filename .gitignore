@@ -1,0 +1,82 @@
+# Runtime / database
+data/runtime_laws.sqlite3
+
+# Build output
+dist/
+dist-flatpak/
+dist-flatpak-bundles/
+flatpak-build/
+.flatpak-builder/
+
+# Flatpak staging
+flatpak-app/
+
+# Node / Electron dependencies
+node_modules/
+
+# Logs and generated reports
+*.log
+*_report.txt
+*_audit_report.txt
+*_classification.txt
+
+# Temporary / miscellaneous generated files
+=
+
+# Editor / OS files
+.DS_Store
+Thumbs.db
+
+# Backup copies
+*.backup*
+*.before_*
+*.bak
+
+# Large source/data archives not needed in the public repository
+raw_data/
+scripts/
+
+# Historical renderer/index backups
+*.before-*
+*.before_*
+*.backup*
+*.BACKUP*
+*.bad-wrapper-backup
+*.blank_screen_backup
+*.corrupted_backup
+*.truncated-backup
+
+# Diagnostic / audit text files
+*_audit.txt
+*_audit_report.txt
+*_forensic_report.txt
+*_candidates.txt
+*_high_risk.txt
+*_differences.txt
+*_classification.txt
+*_no_case_number.txt
+
+# Runtime SQLite files
+data/runtime_laws.sqlite3
+data/runtime_laws.sqlite3-shm
+data/runtime_laws.sqlite3-wal
+
+# Generated data/review files
+data/repair_logs/
+data/duplicate_review.json
+data/presidential_decree_duplicate_summary.json
+data/presidential_decree_final_verification.json
+data/presidential_decree_review_36.json
+data/presidential_decree_structural_audit.json
+parser_title_same_number_cases.txt
+
+# Historical renderer backups
+renderer-before-bookmarks.js
+renderer.js.BEFORE_24_HOUR_LAW_OF_DAY
+
+# Root runtime database copy
+/runtime_laws.sqlite3
+
+# Large generated law dataset
+data/laws.json
+data/laws_index.json

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Philippine Laws App</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f5f1e8;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 1000px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #fffdf8;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        header {
+            height: 64px;
+            padding: 0 24px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .app-title {
+            font-size: 23px;
+            font-weight: bold;
+            min-width: 0;
+        }
+
+        .top-buttons {
+            display: flex;
+            gap: 22px;
+            flex-shrink: 0;
+        }
+
+        .top-buttons button,
+        .bottom-bar button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .bottom-bar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 22px;
+            padding: 16px 24px;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+        }
+
+        main {
+            flex: 1;
+            width: 100%;
+            padding: 42px 32px 60px;
+            min-width: 0;
+        }
+
+        .main-title {
+            text-align: center;
+            font-size: 28px;
+            margin: 0 0 35px;
+            overflow-wrap: anywhere;
+        }
+
+        .view {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            min-width: 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .section-title {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            overflow-wrap: anywhere;
+        }
+
+        .category-list,
+        .law-list,
+        .section-list,
+        #notesList {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .category-button,
+        .law-button,
+        .section-button {
+            width: 100%;
+            max-width: 100%;
+            padding: 16px 18px;
+            background: #fff;
+            border: 1px solid #d8d2c8;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+            min-width: 0;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .category-button:hover,
+        .law-button:hover,
+        .section-button:hover {
+            background: #f5f1e8;
+        }
+
+        .category-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            gap: 15px;
+        }
+
+        .category-arrow {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .back-button {
+            margin-bottom: 18px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px 0;
+            max-width: 100%;
+        }
+
+        .law-number {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 8px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .law-title {
+            font-size: 18px;
+            margin: 0 0 24px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .law-count {
+            margin-bottom: 18px;
+            color: #555;
+        }
+
+        .hierarchy-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .section-button {
+            line-height: 1.5;
+        }
+
+        .section-number {
+            font-weight: bold;
+        }
+
+
+
+
+
+
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <header>
+
+        <div class="app-title">
+            ⚖ My Philippine Laws App
+        </div>
+
+        <div class="top-buttons">
+
+            
+
+            <button id="notesButton">
+                📝 Notes
+            </button>
+
+            <button id="settingsButton">
+                ⚙ Settings
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <h1 class="main-title">
+            PHILIPPINE LAWS
+        </h1>
+
+
+        <!-- =========================
+             CATEGORY / LAW BROWSER
+        ========================== -->
+
+        <div
+            id="browseView"
+            class="view"
+        >
+
+            <div id="categoryView">
+
+                <h2 class="section-title">
+                    Browse by Category
+                </h2>
+
+                <div
+                    id="categoryList"
+                    class="category-list"
+                ></div>
+
+            </div>
+
+
+            <div
+                id="lawView"
+                class="hidden"
+            >
+
+                <button
+                    id="lawBackButton"
+                    class="back-button"
+                >
+                    ← Back to Categories
+                </button>
+
+                <h2
+                    id="lawCategoryTitle"
+                    class="section-title"
+                ></h2>
+
+                <div
+                    id="lawList"
+                    class="law-list"
+                ></div>
+
+            </div>
+
+
+            <div
+                id="selectedLawView"
+                class="hidden"
+            >
+
+                <button
+                    id="selectedLawBackButton"
+                    class="back-button"
+                >
+                    ← Back
+                </button>
+
+                <div
+                    id="selectedLawNumber"
+                    class="law-number"
+                ></div>
+
+                <div
+                    id="selectedLawTitle"
+                    class="law-title"
+                ></div>
+
+                <div
+                    id="selectedLawCount"
+                    class="law-count"
+                ></div>
+
+                <div
+                    id="hierarchyTitle"
+                    class="hierarchy-title"
+                ></div>
+
+                <div
+                    id="articleSelectorContainer"
+                >
+
+                    <label
+                        for="articleSelector"
+                        style="
+                            display:block;
+                            margin:0 0 8px;
+                            font-weight:bold;
+                        "
+                    >
+                        Article:
+                    </label>
+
+                    <select
+                        id="articleSelector"
+                        style="
+                            width:100%;
+                            padding:13px 14px;
+                            margin-bottom:25px;
+                            border:1px solid #cfc8bd;
+                            border-radius:7px;
+                            background:white;
+                            font-size:15px;
+                        "
+                    ></select>
+
+                </div>
+
+                <div
+                    id="sectionList"
+                    class="section-list"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             ARTICLE / SECTION READER
+        ========================== -->
+
+        <div
+            id="articleView"
+            class="view hidden"
+        >
+
+            <button
+                id="articleBackButton"
+                class="back-button"
+            >
+                ← Back to Law
+            </button>
+
+            <div class="reader-header">
+
+                <div
+                    id="readerLawNumber"
+                    class="reader-law-number"
+                ></div>
+
+                <div
+                    id="readerLawTitle"
+                    class="reader-law-title"
+                ></div>
+
+            </div>
+
+            <h2
+                id="articleTitle"
+                class="article-heading"
+            ></h2>
+
+            <div
+                id="articleText"
+                class="article-text"
+            ></div>
+
+            <div class="article-navigation">
+
+                <button id="previousArticle">
+                    ← Previous
+                </button>
+
+                <button id="nextArticle">
+                    Next →
+                </button>
+
+            </div>
+
+            <div class="article-actions">
+
+                
+
+                <button id="copyArticleButton">
+                    📋 Copy
+                </button>
+
+                <button id="shareArticleButton">
+                    ↗ Share
+                </button>
+
+            </div>
+
+        </div>
+
+
+        
+
+
+        <!-- =========================
+             NOTES VIEW
+        ========================== -->
+
+        <div
+            id="notesView"
+            class="view hidden"
+        >
+
+            <button
+                id="notesBackButton"
+                class="back-button"
+            >
+                ← Back
+            </button>
+
+            <h2 class="section-title">
+                📝 Notes
+            </h2>
+
+            <div
+                id="notesList"
+            ></div>
+
+        </div>
+
+
+        <!-- =========================
+             NOTE EDITOR VIEW
+        ========================== -->
+
+        <div
+            id="noteEditorView"
+            class="view hidden"
+        >
+
+            <button
+                id="noteEditorBackButton"
+                class="back-button"
+            >
+                ← Back
+            </button>
+
+            <h2 class="section-title">
+                📝 Add Note
+            </h2>
+
+            <div class="note-editor-card">
+
+                <div
+                    id="noteEditorLaw"
+                    class="note-editor-law"
+                ></div>
+
+                <div
+                    id="noteEditorProvision"
+                    class="note-editor-provision"
+                ></div>
+
+                <textarea
+                    id="noteEditorText"
+                    placeholder="Write your note here..."
+                ></textarea>
+
+                <div class="note-editor-actions">
+
+                    <button
+                        id="noteEditorCancelButton"
+                        type="button"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        id="noteEditorSaveButton"
+                        type="button"
+                    >
+                        💾 Save Note
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             SETTINGS VIEW
+        ========================== -->
+
+        <div
+            id="settingsView"
+            class="view hidden"
+        >
+
+            <button
+                id="settingsBackButton"
+                class="back-button"
+            >
+                ← Back
+            </button>
+
+            <h2 class="section-title">
+                ⚙ Settings
+            </h2>
+
+            <div class="section-card">
+
+                <div class="section-heading">
+                    App Settings
+                </div>
+
+                <div
+                    style="
+                        padding: 0 18px 18px;
+                        line-height: 1.7;
+                    "
+                >
+                    <p>
+                        My Philippine Laws App
+                    </p>
+
+                    <p>
+                        Version 1.0.0
+                    </p>
+
+                    <div style="margin-top:24px;">
+
+                        <label
+                            for="themeSetting"
+                            style="
+                                display:block;
+                                font-weight:bold;
+                                margin-bottom:8px;
+                            "
+                        >
+                            🌓 Theme
+                        </label>
+
+                        <select
+                            id="themeSetting"
+                            style="
+                                width:100%;
+                                max-width:100%;
+                                padding:10px;
+                                font-size:16px;
+                            "
+                        >
+                            <option value="light">
+                                Light
+                            </option>
+                            <option value="dark">
+                                Dark
+                            </option>
+                        </select>
+
+                    </div>
+
+                    <div style="margin-top:22px;">
+
+                        <label
+                            for="textSizeSetting"
+                            style="
+                                display:block;
+                                font-weight:bold;
+                                margin-bottom:8px;
+                            "
+                        >
+                            🔤 Text Size
+                        </label>
+
+                        <select
+                            id="textSizeSetting"
+                            style="
+                                width:100%;
+                                max-width:100%;
+                                padding:10px;
+                                font-size:16px;
+                            "
+                        >
+                            <option value="small">
+                                Small
+                            </option>
+                            <option value="normal">
+                                Normal
+                            </option>
+                            <option value="large">
+                                Large
+                            </option>
+                        </select>
+
+                    </div>
+
+                    <p style="margin-top:24px;">
+                        Your notes are
+                        stored locally on this device.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             SUPPORT
+        ========================== -->
+
+        <div
+            id="supportView"
+            class="view hidden"
+        >
+
+            <button
+                id="supportBackButton"
+                class="back-button"
+            >
+                ← Back
+            </button>
+
+            <h2 class="section-title">
+                ❤️ Support My Philippine Laws App
+            </h2>
+
+            <div class="section-card">
+
+                <div class="section-heading">
+                    GCash
+                </div>
+
+                <div
+                    style="
+                        text-align:center;
+                        padding:20px 18px 24px;
+                        line-height:1.7;
+                    "
+                >
+
+                    <p>
+                        If you would like to support the development
+                        of this app, you can donate through GCash.
+                    </p>
+
+                    <div
+                        style="
+                            width:180px;
+                            height:180px;
+                            margin:20px auto;
+                            background:white;
+                            display:flex;
+                            justify-content:center;
+                            align-items:center;
+                        "
+                    >
+                        <img
+                            src="IMG_8381.JPG"
+                            alt="GCash QR Code"
+                            style="
+                                width:180px;
+                                height:180px;
+                                object-fit:contain;
+                                display:block;
+                            "
+                        >
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             LAW OF THE DAY
+        ========================== -->
+
+        <div
+            id="lawOfDayView"
+            class="view hidden"
+        >
+
+            <button
+                id="lawOfDayBackButton"
+                class="back-button"
+            >
+                ← Back
+            </button>
+
+            <h2 class="section-title">
+                ⚖ Law of the Day
+            </h2>
+
+            <div class="law-of-day-card">
+
+                <div
+                    id="lawOfDayNumber"
+                    class="law-of-day-number"
+                ></div>
+
+                <div
+                    id="lawOfDayTitle"
+                    class="law-of-day-title"
+                ></div>
+
+                <div
+                    id="lawOfDayProvisionNumber"
+                    class="law-of-day-provision"
+                ></div>
+
+                <div
+                    id="lawOfDayProvisionText"
+                    class="law-of-day-text"
+                ></div>
+
+                <div class="section-actions">
+
+                    
+
+                    <button
+                        id="lawOfDayNoteButton"
+                        type="button"
+                    >
+                        📝 Add Note
+                    </button>
+
+                    <button
+                        id="lawOfDayCopyButton"
+                        type="button"
+                    >
+                        📋 Copy
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <footer class="bottom-bar">
+
+        
+
+        <button id="bottomNotes">
+            📝 Notes
+        </button>
+
+        <button id="lawOfDayButton">
+            ⚖ Law of the Day
+        </button>
+
+        <button id="supportButton">
+            ❤️ SUPPORT
+        </button>
+
+    </footer>
+
+</div>
+
+
+<script src="renderer.js"></script>
+
+</body>
+</html>
